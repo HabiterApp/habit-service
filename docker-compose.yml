@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  app:
+    image: 'com.habiter/habit-service:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/habit-service
+      - SPRING_DATASOURCE_USERNAME=habit-service
+      - SPRING_DATASOURCE_PASSWORD=habit-service
+
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    environment:
+      - POSTGRES_DB=habit-service
+      - POSTGRES_USER=habit-service
+      - POSTGRES_PASSWORD=habit-service
+    ports:
+      - "5432:5432"
